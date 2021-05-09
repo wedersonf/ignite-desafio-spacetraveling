@@ -7,6 +7,8 @@ import { getPrismicClient } from '../services/prismic';
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
 import { useState } from 'react';
+import { format, parseISO } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 interface Post {
   uid?: string;
@@ -36,11 +38,7 @@ export default function Home({ postsPagination }: HomeProps) {
   const formattedPosts = posts.map(post => {
     return {
       ...post,
-      first_publication_date: new Date(post.first_publication_date).toLocaleDateString('pt-Br', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric'
-      }).replace('de', '').replace('de', '').replace('.', '')
+      first_publication_date: format(parseISO(post.first_publication_date), 'dd MMM yyyy', { locale: ptBR } )
     }
   })
 
