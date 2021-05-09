@@ -12,6 +12,8 @@ import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
 import { useRouter } from 'next/router';
 import Header from '../../components/Header';
+import { format, parseISO } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 
 interface Post {
   first_publication_date: string | null;
@@ -36,6 +38,7 @@ interface PostProps {
 
 export default function Post({ post }: PostProps) {
   const { isFallback } = useRouter();
+  const formatted_first_publication_date = format(parseISO(post.first_publication_date), 'dd MMM yyyy', { locale: ptBR } )
 
   if(isFallback) {
     return (
@@ -61,16 +64,7 @@ export default function Post({ post }: PostProps) {
           <div className={styles.info}>
             <div>
               <img src="/images/calendar.svg" alt="Calendario"/>
-              <span>{
-                new Date(post.first_publication_date).toLocaleDateString(
-                  'pt-BR',
-                  {
-                    day: '2-digit',
-                    month: 'short',
-                    year: 'numeric'
-                  }
-                ).replace('de', '').replace('de', '').replace('.', '')
-              }</span>
+              <span>{formatted_first_publication_date}</span>
             </div>
 
             <div>

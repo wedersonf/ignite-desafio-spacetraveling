@@ -38,7 +38,7 @@ export default function Home({ postsPagination }: HomeProps) {
   const formattedPosts = posts.map(post => {
     return {
       ...post,
-      first_publication_date: format(parseISO(post.first_publication_date), 'dd MMM yyyy', { locale: ptBR } )
+      formatted_first_publication_date: format(parseISO(post.first_publication_date), 'dd MMM yyyy', { locale: ptBR } )
     }
   })
 
@@ -67,7 +67,7 @@ export default function Home({ postsPagination }: HomeProps) {
               <div className={styles.footer}>
                 <div>
                   <img src="/images/calendar.svg" alt="Calendario"/>
-                  <span>{post.first_publication_date}</span>
+                  <span>{post.formatted_first_publication_date}</span>
                 </div>
 
                 <div>
